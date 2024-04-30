@@ -8,7 +8,11 @@ def open_file(window,text_edit):
         return 
     
     text_edit.delete(1.0,tk.END)
-    
+    with open(filepath,"r") as f:
+        content = f.read
+        text_edit.insert(tk.END,content)
+    window.title(f"Open file: {filepath}")
+
 
 def save_file():
     pass
@@ -24,8 +28,9 @@ def main():
     text_edit.grid(row=0,column=1)
 
     frame = tk.Frame(window,relief=tk.RAISED,bd=2)
-    save_button = tk.Button(frame,text="Save",command=test)
-    open_button = tk.Button(frame,text="Open")
+    save_button = tk.Button(frame,text="Save")
+    open_button = tk.Button(
+        frame,text="Open",command=lambda: open_file(window,text_edit))
 
     save_button.grid(row=0,column=0,padx=5,pady=5,sticky="ew")
     open_button.grid(row=1,column=0,padx=5,sticky="ew")
